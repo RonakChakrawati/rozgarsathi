@@ -213,89 +213,87 @@ const opportunitiesDb = {
 };
 
 // Form Scroll helper for CTA button
-document.getElementById('hero-cta-btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  const targetId = this.getAttribute('href');
-  const targetSection = document.querySelector(targetId);
+document.getElementById('hero-cta-btn').addEventListener('click', function (e) {
+  e.preventDefault();  // helps to no jump directly and shows scroll animation
+  const targetId = this.getAttribute('href');  // href is stored as string here
+  const targetSection = document.querySelector(targetId);  // string as class
   if (targetSection) {
-    targetSection.scrollIntoView({ behavior: 'smooth' });
+    targetSection.scrollIntoView({ behavior: 'smooth' });  // gives smooth scroll animation
   }
 });
 
 // Step 1 -> Step 2 Dynamic Dropdown Logic
-document.getElementById('category-select').addEventListener('change', function() {
-  const categoryVal = this.value;
-  const skillSelect = document.getElementById('skill-select');
-  
+document.getElementById('category-select').addEventListener('change', function () {
+  const categoryVal = this.value;   // user selects option , which stores here
+  const skillSelect = document.getElementById('skill-select');  // selects the second dropdown
+
   // Clear previous options
   skillSelect.innerHTML = '<option value="" disabled selected>हुनर चुनें | Choose Skill</option>';
-  
-  if (opportunitiesDb[categoryVal]) {
-    opportunitiesDb[categoryVal].jobs.forEach(job => {
-      const opt = document.createElement('option');
-      opt.value = job.title;
-      opt.textContent = job.title;
-      skillSelect.appendChild(opt);
+
+  if (opportunitiesDb[categoryVal]) {     // if selected category is in the db 
+    opportunitiesDb[categoryVal].jobs.forEach(job => {     // we will go through each jobs in it , select it and display it
+      const opt = document.createElement('option');    // create variable opt which stores object named option 
+      opt.value = job.title;            // add its value in opt
+      opt.textContent = job.title;      // show its title on web
+      skillSelect.appendChild(opt);     // stores it in skillSelect 
     });
-    // Add an option for generic skill
+    // Add option for other skill
     const otherOpt = document.createElement('option');
     otherOpt.value = "अन्य / General Help";
     otherOpt.textContent = "अन्य / General Help";
     skillSelect.appendChild(otherOpt);
-    
-    skillSelect.disabled = false;
+    skillSelect.disabled = false;       // set its not disable anymore
   } else {
     skillSelect.disabled = true;
   }
 });
 
 // Form Submit Handling
-document.getElementById('search-form').addEventListener('submit', function(e) {
+document.getElementById('search-form').addEventListener('submit', function (e) {
   e.preventDefault();
-  
   const categoryVal = document.getElementById('category-select').value;
   const skillVal = document.getElementById('skill-select').value;
   const whatsappVal = document.getElementById('whatsapp-input').value.trim();
   const locationVal = document.getElementById('location-input').value.trim();
-  
+
   if (!categoryVal || !skillVal || !whatsappVal || !locationVal) {
     alert("कृपया सभी आवश्यक क्षेत्रों को भरें। | Please fill in all required fields.");
     return;
   }
-  
+
   // Basic WhatsApp number validation (10 digits starting with 6-9)
   const phoneRegex = /^[6-9][0-9]{9}$/;
   if (!phoneRegex.test(whatsappVal)) {
     alert("कृपया एक सही 10-अंकीय WhatsApp नंबर दर्ज करें (जैसे: 9876543210)। | Please enter a valid 10-digit WhatsApp number.");
     return;
   }
-  
+
   // Show Loading State & hide previous results
   const loadingState = document.getElementById('loading-state');
   const resultsSection = document.getElementById('results-section');
-  
+
   resultsSection.classList.add('hidden', 'opacity-0');
   loadingState.classList.remove('hidden');
-  
+
   // Scroll to loading area
   loadingState.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  
+
   // Stage tracking for loading animation
   const loadingText = document.getElementById('loading-text');
   const loadingSubtext = document.getElementById('loading-subtext');
   const progressBar = document.getElementById('loading-progress-bar');
-  
+
   const loadingStages = [
     { text: "ढूंढ रहे हैं नौकरियां...", subtext: "Searching for jobs near you...", progress: "33%" },
     { text: "सरकारी योजनाएं मिल रही हैं...", subtext: "Matching government welfare schemes...", progress: "66%" },
     { text: "AI रोडमैप बन रहा है...", subtext: "Generating customized AI skill roadmap...", progress: "100%" }
   ];
-  
+
   let currentStage = 0;
   if (progressBar) progressBar.style.width = loadingStages[0].progress;
   if (loadingText) loadingText.textContent = loadingStages[0].text;
   if (loadingSubtext) loadingSubtext.textContent = loadingStages[0].subtext;
-  
+
   const stageInterval = setInterval(() => {
     currentStage++;
     if (currentStage < loadingStages.length) {
@@ -304,32 +302,32 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
       if (loadingSubtext) loadingSubtext.textContent = loadingStages[currentStage].subtext;
     }
   }, 1000);
-  
+
   // Simulate AI Search (3000ms for demo flow)
   setTimeout(() => {
     clearInterval(stageInterval);
-    
+
     // Smoothly fade out loading state
     loadingState.classList.add('opacity-0');
-    
+
     setTimeout(() => {
       loadingState.classList.add('hidden');
       loadingState.classList.remove('opacity-0'); // reset
-      
+
       // Get opportunities based on category selection
       const data = opportunitiesDb[categoryVal] || opportunitiesDb['other'];
-      
+
       // Inject metadata in results section
       document.getElementById('res-skill').textContent = skillVal;
       document.getElementById('res-location').textContent = locationVal;
-      
+
       // Build Jobs Cards
       const jobsContainer = document.getElementById('jobs-container');
       jobsContainer.innerHTML = '';
-      
+
       data.jobs.forEach((job, index) => {
         const jobLocation = locationVal;
-        
+
         // WhatsApp individual job link
         const waJobText = encodeURIComponent(
           `नमस्ते RozgarSathi! मुझे इस नौकरी के बारे में और जानकारी चाहिए:\n\n` +
@@ -341,7 +339,7 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
           `कृपया मुझे आवेदन करने की प्रक्रिया समझाएं। धन्यवाद!`
         );
         const waJobUrl = `https://wa.me/91${whatsappVal}?text=${waJobText}`;
-        
+
         const jobCard = `
           <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 hover:border-saffron/30 hover:shadow-sm transition-all space-y-3">
             <div class="flex justify-between items-start">
@@ -368,11 +366,11 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
         `;
         jobsContainer.insertAdjacentHTML('beforeend', jobCard);
       });
-      
+
       // Build Schemes Cards
       const schemesContainer = document.getElementById('schemes-container');
       schemesContainer.innerHTML = '';
-      
+
       data.schemes.forEach((scheme, index) => {
         // WhatsApp individual scheme link
         const waSchemeText = encodeURIComponent(
@@ -383,7 +381,7 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
           `कृपया मुझे इसके लिए जरूरी दस्तावेज और आवेदन प्रक्रिया की जानकारी व्हाट्सएप पर भेजें। धन्यवाद!`
         );
         const waSchemeUrl = `https://wa.me/91${whatsappVal}?text=${waSchemeText}`;
-        
+
         const schemeCard = `
           <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 hover:border-saffron/30 hover:shadow-sm transition-all space-y-3">
             <div class="flex justify-between items-start">
@@ -407,11 +405,11 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
         `;
         schemesContainer.insertAdjacentHTML('beforeend', schemeCard);
       });
-      
+
       // Build AI Roadmap Checklist
       const roadmapContainer = document.getElementById('roadmap-container');
       roadmapContainer.innerHTML = '';
-      
+
       data.roadmap.forEach((step, index) => {
         const stepItem = `
           <div class="flex items-start space-x-3 text-xs md:text-sm text-charcoal-light border-b border-gray-200/50 pb-2 last:border-0 last:pb-0">
@@ -424,7 +422,7 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
         `;
         roadmapContainer.insertAdjacentHTML('beforeend', stepItem);
       });
-      
+
       // Configure Send All Results WhatsApp Button
       const categoryName = document.getElementById('category-select').options[document.getElementById('category-select').selectedIndex].text;
       const waAllText = encodeURIComponent(
@@ -435,19 +433,15 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
         `कृपया मुझे मेरे शहर में मौजूद सभी नौकरियां, सरकारी योजनाओं की लिस्ट और मेरा कस्टमाइज्ड 'AI स्किल रोडमैप' व्हाट्सएप पर पीडीएफ के रूप में भेजें। धन्यवाद!`
       );
       const waAllUrl = `https://wa.me/91${whatsappVal}?text=${waAllText}`;
-      
-      document.getElementById('send-all-whatsapp').onclick = function() {
+
+      document.getElementById('send-all-whatsapp').onclick = function () {
         window.open(waAllUrl, '_blank');
       };
-      
       // Reveal Results Section with fade-in
       resultsSection.classList.remove('hidden');
-      
       // Trigger layout reflow to allow transition to occur
       resultsSection.offsetHeight;
-      
       resultsSection.classList.remove('opacity-0');
-      
       // Smooth scroll to results
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 300);
@@ -455,7 +449,7 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
 });
 
 // Search Again scroll-back handler
-document.getElementById('search-again-btn').addEventListener('click', function() {
+document.getElementById('search-again-btn').addEventListener('click', function () {
   const formSection = document.getElementById('form-section');
   if (formSection) {
     formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });

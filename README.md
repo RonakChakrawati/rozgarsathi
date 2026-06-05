@@ -42,7 +42,7 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 - [x] Idea finalized
 - [x] Team formed
 - [x] Tech stack decided
-- [ ] Frontend skeleton
+- [x] Frontend skeleton
 - [ ] Flask backend
 - [ ] Gemini API integration
 - [ ] Scheme database
