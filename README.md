@@ -37,7 +37,7 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 
 ## Project Status
 
-🚧 Currently in active development
+ Currently in active development
 
 - [x] Idea finalized
 - [x] Team formed
