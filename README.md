@@ -1,4 +1,4 @@
-# RozgarSathi 🤝
+# RozgarSathi 
 
 > *"400 million workers in India want to grow. We're building the ladder."*
 
@@ -6,10 +6,10 @@
 
 RozgarSathi (meaning "companion for livelihood") is an AI-powered web platform built exclusively for India's blue collar workforce. A worker enters their skill and location in Hindi or English and instantly receives:
 
-- 💼 **Relevant local job listings** matched to their profile
-- 🏛️ **Government schemes they qualify for** — PMKVY, DDU-GKY, PM Vishwakarma and more — explained in simple language with application steps
-- 🤖 **AI-generated skill roadmap** — what to learn next to earn more, powered by Google Gemini
-- 📱 **WhatsApp delivery** — all results sent directly to their WhatsApp, zero app download needed
+- **Relevant local job listings** matched to their profile
+- **Government schemes they qualify for** — PMKVY, DDU-GKY, PM Vishwakarma and more — explained in simple language with application steps
+- **AI-generated skill roadmap** — what to learn next to earn more, powered by Google Gemini
+- **WhatsApp delivery** — all results sent directly to their WhatsApp, zero app download needed
 
 ## The Problem
 
