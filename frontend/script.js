@@ -214,15 +214,15 @@ const opportunitiesDb = {
 
 // Form Scroll helper for CTA button
 document.getElementById('hero-cta-btn').addEventListener('click', function (e) {
-  e.preventDefault();  // helps to no jump directly and shows scroll animation
-  const targetId = this.getAttribute('href');  // href is stored as string here
-  const targetSection = document.querySelector(targetId);  // string as class
+  e.preventDefault();                // helps to not jump directly and shows scroll animation
+  const targetId = this.getAttribute('href');                  // href is stored as string here
+  const targetSection = document.querySelector(targetId);                // string as class
   if (targetSection) {
-    targetSection.scrollIntoView({ behavior: 'smooth' });  // gives smooth scroll animation
+    targetSection.scrollIntoView({ behavior: 'smooth' });       // gives smooth scroll animation
   }
 });
 
-// Step 1 -> Step 2 Dynamic Dropdown Logic
+// Dynamic Dropdown Logic
 document.getElementById('category-select').addEventListener('change', function () {
   const categoryVal = this.value;   // user selects option , which stores here
   const skillSelect = document.getElementById('skill-select');  // selects the second dropdown
@@ -230,19 +230,19 @@ document.getElementById('category-select').addEventListener('change', function (
   // Clear previous options
   skillSelect.innerHTML = '<option value="" disabled selected>हुनर चुनें | Choose Skill</option>';
 
-  if (opportunitiesDb[categoryVal]) {     // if selected category is in the db 
+  if (opportunitiesDb[categoryVal]) {            // if selected category is in the db 
     opportunitiesDb[categoryVal].jobs.forEach(job => {     // we will go through each jobs in it , select it and display it
       const opt = document.createElement('option');    // create variable opt which stores object named option 
-      opt.value = job.title;            // add its value in opt
-      opt.textContent = job.title;      // show its title on web
-      skillSelect.appendChild(opt);     // stores it in skillSelect 
-    });
+      opt.value = job.title;                                      // add its value in opt
+      opt.textContent = job.title;                          // show its title on web
+      skillSelect.appendChild(opt);                    // stores it in skillSelect 
+    });  
     // Add option for other skill
     const otherOpt = document.createElement('option');
     otherOpt.value = "अन्य / General Help";
     otherOpt.textContent = "अन्य / General Help";
     skillSelect.appendChild(otherOpt);
-    skillSelect.disabled = false;       // set its not disable anymore
+    skillSelect.disabled = false;   
   } else {
     skillSelect.disabled = true;
   }
