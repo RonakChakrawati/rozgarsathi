@@ -214,35 +214,35 @@ const opportunitiesDb = {
 
 // Form Scroll helper for CTA button
 document.getElementById('hero-cta-btn').addEventListener('click', function (e) {
-  e.preventDefault();                // helps to not jump directly and shows scroll animation
-  const targetId = this.getAttribute('href');                  // href is stored as string here
+  e.preventDefault();                                                    // helps to not jump directly and shows scroll animation
+  const targetId = this.getAttribute('href');                            // href is stored as string here
   const targetSection = document.querySelector(targetId);                // string as class
   if (targetSection) {
-    targetSection.scrollIntoView({ behavior: 'smooth' });       // gives smooth scroll animation
+    targetSection.scrollIntoView({ behavior: 'smooth' });                // gives smooth scroll animation
   }
 });
 
 // Dynamic Dropdown Logic
 document.getElementById('category-select').addEventListener('change', function () {
-  const categoryVal = this.value;   // user selects option , which stores here
-  const skillSelect = document.getElementById('skill-select');  // selects the second dropdown
+  const categoryVal = this.value;                                    // user selects option , which stores here
+  const skillSelect = document.getElementById('skill-select');       // selects the second dropdown
 
   // Clear previous options
   skillSelect.innerHTML = '<option value="" disabled selected>हुनर चुनें | Choose Skill</option>';
 
-  if (opportunitiesDb[categoryVal]) {            // if selected category is in the db 
-    opportunitiesDb[categoryVal].jobs.forEach(job => {     // we will go through each jobs in it , select it and display it
-      const opt = document.createElement('option');    // create variable opt which stores object named option 
+  if (opportunitiesDb[categoryVal]) {                             // if selected category is in the db 
+    opportunitiesDb[categoryVal].jobs.forEach(job => {            // we will go through each jobs in it , select it and display it
+      const opt = document.createElement('option');               // create variable opt which stores object named option 
       opt.value = job.title;                                      // add its value in opt
-      opt.textContent = job.title;                          // show its title on web
-      skillSelect.appendChild(opt);                    // stores it in skillSelect 
-    });  
+      opt.textContent = job.title;                                // show its title on web
+      skillSelect.appendChild(opt);                               // stores it in skillSelect 
+    });
     // Add option for other skill
     const otherOpt = document.createElement('option');
     otherOpt.value = "अन्य / General Help";
     otherOpt.textContent = "अन्य / General Help";
     skillSelect.appendChild(otherOpt);
-    skillSelect.disabled = false;   
+    skillSelect.disabled = false;
   } else {
     skillSelect.disabled = true;
   }
@@ -264,7 +264,13 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
   // Basic WhatsApp number validation (10 digits starting with 6-9)
   const phoneRegex = /^[6-9][0-9]{9}$/;
   if (!phoneRegex.test(whatsappVal)) {
-    alert("कृपया एक सही 10-अंकीय WhatsApp नंबर दर्ज करें (जैसे: 9876543210)। | Please enter a valid 10-digit WhatsApp number.");
+    alert("कृपया एक सही 10-अंकीय WhatsApp नंबर दर्ज करें | Please enter a valid 10-digit WhatsApp number.");
+    return;
+  }
+
+  const cityRegex = /^[A-Za-z\s]+$/;
+  if (!cityRegex.test(locationVal)) {
+    alert("कृपया अपने शहर या गाँव का सही नाम दर्ज करें | Please enter a valid city or village name");
     return;
   }
 
@@ -444,14 +450,24 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
       resultsSection.classList.remove('opacity-0');
       // Smooth scroll to results
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
+      resultsSection.style.display = 'block';
+    }, 300); S
   }, 3000);
 });
 
 // Search Again scroll-back handler
 document.getElementById('search-again-btn').addEventListener('click', function () {
+  document.getElementById('jobs-container').innerHTML = '';                  // removes jobs class content
+  document.getElementById('schemes-container').innerHTML = '';               // removes schemes class content
+  document.getElementById('roadmap-container').innerHTML = '';               // removes roadmap class content
+  document.getElementById('results-section').style.display = 'none';         // hides result class
+
+  // Scroll back to form
   const formSection = document.getElementById('form-section');
   if (formSection) {
-    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    formSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 });

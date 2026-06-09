@@ -36,7 +36,7 @@
         extend: {
           colors: {
             saffron: {
-              DEFAULT:'#FF6B35',
+              DEFAULT: '#FF6B35',
               hover: '#E85B28',
               light: '#FFF2EC',
             },
@@ -331,9 +331,16 @@
                 <span>अपना शहर / गाँव <span class="text-saffron">*</span></span>
                 <span class="text-xs font-normal text-charcoal-light">Where is your city?</span>
               </label>
-              <input type="text" id="location-input" name="location" required
+              <input type="text" id="location-input" name="location" required pattern="[A-Za-z ]+"
+                list="cities-list"
                 placeholder="जैसे: पटना, इंदौर, लखनऊ, रांची"
                 class="w-full min-h-[48px] px-4 py-2.5 rounded-xl border border-gray-300 text-base focus:border-saffron focus:ring-2 focus:ring-saffron/20 transition-all placeholder:text-gray-400 bg-white" />
+              <datalist id="cities-list">     <!-- auto suggest from data-->
+                <option value="Delhi">
+                <option value="Mumbai">
+                <option value="Surat">
+                <option value="Ahmedabad">
+              </datalist>
             </div>
 
             <!-- Submit Button -->
