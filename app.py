@@ -6,18 +6,21 @@ app = Flask(__name__)
 def home():
     return ' Backend is running!'
 
-@app.route('/search')
+@app.route('/search', methods=['POST'])
 def search():
-    skill = request.args.get('skill')
-    location = request.args.get('location')
-    
-    if not skill or not location:
-        return jsonify({'error': 'skill and location required'}), 400
-    
+
+    category = request.json.get('category')
+    skill = request.json.get('skill')
+    location = request.json.get('location')
+
+    if not category or not skill or not location:
+        return jsonify({'error': 'Missing required fields'}), 400
+
     return jsonify({
+        'category': category,
         'skill': skill,
         'location': location,
-        'message': f'Searching for {skill} jobs in {location}'
+        'message': f'Received {skill} from {location}'
     })
 
 if __name__ == '__main__':
