@@ -1,4 +1,5 @@
 // RozgarSathi Mock Opportunities Database
+console.log("SCRIPT LOADED");
 const opportunitiesDb = {
   construction: {
     jobs: [
@@ -249,7 +250,7 @@ document.getElementById('category-select').addEventListener('change', function (
 });
 
 // Form Submit Handling
-document.getElementById('search-form').addEventListener('submit', function (e) {
+document.getElementById('search-form').addEventListener('submit',async function (e) {
   e.preventDefault();
   const categoryVal = document.getElementById('category-select').value;
   const skillVal = document.getElementById('skill-select').value;
@@ -273,6 +274,26 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
     alert("कृपया अपने शहर या गाँव का सही नाम दर्ज करें | Please enter a valid city or village name");
     return;
   }
+
+  console.log("FETCH STARTING");
+
+  // await says wait first when fetch finish then continue
+  // to use await we need async function
+  const response = await fetch("http://127.0.0.1:5000/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      category: categoryVal,
+      skill: skillVal,
+      location: locationVal
+    })
+  });
+  const data = await response.json();
+  console.log(data.message);
+  console.log(response.status);
+  console.log(response.ok);
 
   // Show Loading State & hide previous results
   const loadingState = document.getElementById('loading-state');
@@ -451,7 +472,7 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
       // Smooth scroll to results
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       resultsSection.style.display = 'block';
-    }, 300); S
+    }, 300); 
   }, 3000);
 });
 
