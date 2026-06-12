@@ -8,6 +8,12 @@ CORS(app)
 def home():
     return ' Backend is running!'
 
+electrical_data = {
+    "jobs": [],
+    "schemes": [],
+    "roadmap": []
+}
+
 @app.route('/search', methods=['POST'])
 def search():
     print(" ")
@@ -22,12 +28,8 @@ def search():
     if not category or not skill or not location:
         return jsonify({'error': 'Missing required fields'}), 400
 
-    return jsonify({
-        'category': category,
-        'skill': skill,
-        'location': location,
-        'message': f'Received {skill} from {location}'
-    })
+    return jsonify(electrical_data);
+
 
 if __name__ == '__main__':
     app.run(debug=True)

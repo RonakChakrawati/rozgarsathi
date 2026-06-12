@@ -291,7 +291,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
     })
   });
   const data = await response.json();
-  console.log(data.message);
+  console.log(data);
   console.log(response.status);
   console.log(response.ok);
 
@@ -342,7 +342,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       loadingState.classList.remove('opacity-0'); // reset
 
       // Get opportunities based on category selection
-      const data = opportunitiesDb[categoryVal] || opportunitiesDb['other'];
+      const frontendData = opportunitiesDb[categoryVal] || opportunitiesDb['other'];
 
       // Inject metadata in results section
       document.getElementById('res-skill').textContent = skillVal;
@@ -352,7 +352,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       const jobsContainer = document.getElementById('jobs-container');
       jobsContainer.innerHTML = '';
 
-      data.jobs.forEach((job, index) => {
+      frontendData.jobs.forEach((job, index) => {
         const jobLocation = locationVal;
 
         // WhatsApp individual job link
@@ -398,7 +398,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       const schemesContainer = document.getElementById('schemes-container');
       schemesContainer.innerHTML = '';
 
-      data.schemes.forEach((scheme, index) => {
+      frontendData.schemes.forEach((scheme, index) => {
         // WhatsApp individual scheme link
         const waSchemeText = encodeURIComponent(
           `नमस्ते RozgarSathi! मुझे इस सरकारी योजना का लाभ उठाना है:\n\n` +
@@ -437,7 +437,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       const roadmapContainer = document.getElementById('roadmap-container');
       roadmapContainer.innerHTML = '';
 
-      data.roadmap.forEach((step, index) => {
+    frontendData.roadmap.forEach((step, index) => {
         const stepItem = `
           <div class="flex items-start space-x-3 text-xs md:text-sm text-charcoal-light border-b border-gray-200/50 pb-2 last:border-0 last:pb-0">
             <span class="text-saffron text-base select-none mt-0.5" aria-hidden="true">✔</span>
