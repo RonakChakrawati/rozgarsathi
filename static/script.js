@@ -290,8 +290,8 @@ document.getElementById('search-form').addEventListener('submit',async function 
       location: locationVal
     })
   });
-  const data = await response.json();
-  console.log(data);
+  const backendData = await response.json();
+  console.log(backendData);
   console.log(response.status);
   console.log(response.ok);
 
@@ -342,7 +342,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       loadingState.classList.remove('opacity-0'); // reset
 
       // Get opportunities basedgit on category selection
-      const data = opportunitiesDb[categoryVal] || opportunitiesDb['other'];
+      const data = backendData;
 
       // Inject metadata in results section
       document.getElementById('res-skill').textContent = skillVal;
