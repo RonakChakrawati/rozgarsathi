@@ -115,8 +115,8 @@ Theme 1 — AI for Safer, Smarter, Inclusive Bharat
 
 ## Team members 
 
-Krish Raj
-Himanshu Raj
+- Krish Raj
+- Himanshu Raj
 
 ## License
 
