@@ -8,7 +8,7 @@ RozgarSathi (meaning "companion for livelihood") is an AI-powered web platform b
 
 - **Relevant local job listings** matched to their profile
 - **Government schemes they qualify for** — PMKVY, DDU-GKY, PM Vishwakarma and more — explained in simple language with application steps
-- **AI-generated skill roadmap** — what to learn next to earn more, powered by Google Gemini
+- **AI-generated skill roadmap** — what to learn next to earn more, Planned AI-generated skill roadmap powered by Google Gemini
 - **WhatsApp delivery** — all results sent directly to their WhatsApp, zero app download needed
 
 ## Current MVP Features
@@ -93,6 +93,20 @@ Frontend Rendering
 Routes:
 - /search
 - /skills/&lt;category&gt;
+
+## Installation
+
+```bash
+git clone <https://github.com/RonakChakrawati/rozgarsathi>
+cd RozgarSathi
+
+python -m venv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+python app.py
+
+```
 
 ## Team
 
