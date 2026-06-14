@@ -3,4 +3,4 @@ __pycache__/
 *.pyc
 .env
 .vscode/
-BUGS.md
+PROJECT_LOG.md
