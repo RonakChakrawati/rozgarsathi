@@ -113,6 +113,11 @@ python app.py
 Built for Samsung Solve for Tomorrow 2026
 Theme 1 — AI for Safer, Smarter, Inclusive Bharat
 
+## Team members 
+
+Krish Raj
+Himanshu Raj
+
 ## License
 
 MIT
