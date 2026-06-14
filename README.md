@@ -1,60 +1,170 @@
-# RozgarSathi 
+RozgarSathi 
 
-> *"400 million workers in India want to grow. We're building the ladder."*
+“Helping India’s blue-collar workforce discover jobs, government schemes, and career growth opportunities through a simple AI-powered platform.”
 
-## What is RozgarSathi?
+Problem Statement
 
-RozgarSathi (meaning "companion for livelihood") is an AI-powered web platform built exclusively for India's blue collar workforce. A worker enters their skill and location in Hindi or English and instantly receives:
+India has over 400 million workers in the informal and blue-collar sector. Most workers depend on word-of-mouth networks to find jobs, remain unaware of government welfare schemes they are eligible for, and lack a structured path to improve their skills and income.
 
-- **Relevant local job listings** matched to their profile
-- **Government schemes they qualify for** — PMKVY, DDU-GKY, PM Vishwakarma and more — explained in simple language with application steps
-- **AI-generated skill roadmap** — what to learn next to earn more, powered by Google Gemini
-- **WhatsApp delivery** — all results sent directly to their WhatsApp, zero app download needed
+Existing platforms primarily serve white-collar professionals, leaving millions of skilled workers without accessible career guidance.
 
-## The Problem
+RozgarSathi aims to bridge this gap.
 
-India has 400+ million blue collar workers. They are:
-- Discovering jobs purely through word of mouth
-- Missing government schemes they qualify for simply because nobody told them
-- Having no structured path to upskill and grow
+⸻
 
-Existing platforms like Naukri and LinkedIn are built for white collar India. RozgarSathi is built for the India that everyone else forgot.
+What is RozgarSathi?
 
-## Target User
+RozgarSathi is a web platform designed for workers such as:
 
-- Age 18-45, tier 2/3 cities and towns
-- Construction workers, factory laborers, electricians, plumbers, domestic helpers
-- Basic smartphone, WhatsApp user, Hindi/regional language speaker
-- Has skills and ambition but zero structured guidance
+* Construction Workers
+* Factory Workers
+* Electricians
+* Plumbers
+* Domestic Workers
+* General Laborers
 
-## Tech Stack
+A user selects their work category, skill, and location, and instantly receives:
 
-- **Frontend:** HTML, CSS (Tailwind), Vanilla JavaScript
-- **Backend:** Python Flask
-- **AI:** Google Gemini API
-- **Notifications:** Twilio WhatsApp API
-- **Deployment:** Render/vercel
+* Relevant job opportunities
+* Government welfare schemes
+* Career growth roadmap
+* WhatsApp-ready guidance
 
-## Project Status
+The platform is designed with a Hindi-first approach to remain accessible to users from Tier-2, Tier-3 cities and rural areas.
 
- Currently in active development
+⸻
 
-- [x] Idea finalized
-- [x] Team formed
-- [x] Tech stack decided
-- [x] Frontend skeleton
-- [ ] Flask backend
-- [ ] Gemini API integration
-- [ ] Scheme database
-- [ ] Job listings integration
-- [ ] WhatsApp integration
-- [ ] Deployment
+Current Features
 
-## Team
+Job Recommendations
 
-Built for Samsung Solve for Tomorrow 2026
-Theme 1 — AI for Safer, Smarter, Inclusive Bharat
+Workers receive relevant job opportunities based on their selected skill category.
 
-## License
+Government Scheme Discovery
 
-MIT
+The platform displays welfare schemes and benefits applicable to the selected profession.
+
+Career Growth Roadmap
+
+Workers receive a simple step-by-step roadmap showing how they can improve their skills and increase their earning potential.
+
+Dynamic Skill Selection
+
+Available skills automatically update based on the selected category.
+
+Hindi-Friendly Interface
+
+The platform is designed to be easy to use for workers comfortable with Hindi.
+
+⸻
+
+Supported Categories
+
+* Construction
+* Factory
+* Electrical
+* Plumbing
+* Domestic Services
+* General Labor
+
+⸻
+
+System Architecture
+
+User
+  ↓
+Frontend (HTML + Tailwind CSS + JavaScript)
+  ↓
+Flask Backend API
+  ↓
+data.py
+  ↓
+JSON Response
+  ↓
+Frontend Rendering
+
+Current API Routes
+
+GET  /skills/<category>
+POST /search
+
+⸻
+
+Tech Stack
+
+Frontend
+
+* HTML5
+* Tailwind CSS
+* Vanilla JavaScript
+
+Backend
+
+* Python
+* Flask
+
+Planned Integrations
+
+* Google Gemini API
+* Twilio WhatsApp API
+* Deployment on Render/Vercel
+
+⸻
+
+Project Status
+
+Completed
+
+* Problem research
+* Idea finalization
+* Team formation
+* Frontend interface
+* Flask backend setup
+* Backend API integration
+* Dynamic category and skill system
+* Worker opportunity database
+* Government scheme database
+* Career roadmap database
+
+In Progress
+
+* Gemini-powered personalized roadmaps
+* Real job source integration
+* WhatsApp automation
+* Deployment
+
+⸻
+
+Future Roadmap
+
+Phase 1
+
+* Complete Gemini integration
+* Generate personalized growth plans
+* Improve recommendation quality
+
+Phase 2
+
+* WhatsApp delivery system
+* Automated notifications
+* Application guidance
+
+Phase 3
+
+* Real-time job sources
+* Regional language support
+* Worker profile system
+
+⸻
+
+Team
+
+Built as part of Samsung Solve for Tomorrow 2026
+
+Theme: AI for a Safer, Smarter, and More Inclusive Bharat
+
+⸻
+
+License
+
+MIT License
