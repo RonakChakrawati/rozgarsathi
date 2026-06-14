@@ -9,6 +9,15 @@ CORS(app)
 def home():
     return render_template("index.html")
 
+@app.route('/skills/<category>')
+def get_skills(category):
+    jobs = all_data[category]["jobs"]
+    skills = []
+    for job in jobs:
+        skills.append(job["title"])
+        
+    return jsonify(skills)
+
 @app.route('/search', methods=['POST'])
 def search():
     print(" ")

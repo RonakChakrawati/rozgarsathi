@@ -224,33 +224,31 @@ document.getElementById('hero-cta-btn').addEventListener('click', function (e) {
 });
 
 // Dynamic Dropdown Logic
-document.getElementById('category-select').addEventListener('change', function () {
+document.getElementById('category-select').addEventListener('change', async function () {
   const categoryVal = this.value;                                    // user selects option , which stores here
   const skillSelect = document.getElementById('skill-select');       // selects the second dropdown
 
   // Clear previous options
   skillSelect.innerHTML = '<option value="" disabled selected>हुनर चुनें | Choose Skill</option>';
 
-  if (opportunitiesDb[categoryVal]) {                             // if selected category is in the db 
-    opportunitiesDb[categoryVal].jobs.forEach(job => {            // we will go through each jobs in it , select it and display it
-      const opt = document.createElement('option');               // create variable opt which stores object named option 
-      opt.value = job.title;                                      // add its value in opt
-      opt.textContent = job.title;                                // show its title on web
-      skillSelect.appendChild(opt);                               // stores it in skillSelect 
-    });
-    // Add option for other skill
-    const otherOpt = document.createElement('option');
-    otherOpt.value = "अन्य / General Help";
-    otherOpt.textContent = "अन्य / General Help";
-    skillSelect.appendChild(otherOpt);
-    skillSelect.disabled = false;
-  } else {
-    skillSelect.disabled = true;
-  }
+  const response = await fetch(`/skills/${categoryVal}`);
+  const skills = await response.json();
+  console.log(skills);
+  skills.forEach(skill => {
+    const opt = document.createElement('option');
+    opt.value = skill;
+    opt.textContent = skill;
+    skillSelect.appendChild(opt);
+  });
+  const otherOpt = document.createElement('option');
+  otherOpt.value = "अन्य / General Help";
+  otherOpt.textContent = "अन्य / General Help";
+  skillSelect.appendChild(otherOpt);
+  skillSelect.disabled = false;
 });
 
 // Form Submit Handling
-document.getElementById('search-form').addEventListener('submit',async function (e) {
+document.getElementById('search-form').addEventListener('submit', async function (e) {
   e.preventDefault();
   const categoryVal = document.getElementById('category-select').value;
   const skillVal = document.getElementById('skill-select').value;
@@ -437,7 +435,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       const roadmapContainer = document.getElementById('roadmap-container');
       roadmapContainer.innerHTML = '';
 
-    data.roadmap.forEach((step, index) => {
+      data.roadmap.forEach((step, index) => {
         const stepItem = `
           <div class="flex items-start space-x-3 text-xs md:text-sm text-charcoal-light border-b border-gray-200/50 pb-2 last:border-0 last:pb-0">
             <span class="text-saffron text-base select-none mt-0.5" aria-hidden="true">✔</span>
@@ -472,7 +470,7 @@ document.getElementById('search-form').addEventListener('submit',async function 
       // Smooth scroll to results
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       resultsSection.style.display = 'block';
-    }, 300); 
+    }, 300);
   }, 3000);
 });
 
