@@ -43,7 +43,7 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 - Frontend: HTML, Tailwind CSS, Vanilla JavaScript
 - Backend: Python Flask
 - Data Layer: Python data modules
-- Planned AI Layer: Google Gemini API
+- AI Layer: Google Gemini API
 - Planned Messaging Layer: Twilio WhatsApp API
 - Deployment: Render / Vercel
 
@@ -61,12 +61,15 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 - [x] Worker opportunity database
 - [x] Government scheme database
 - [x] Career roadmap database
+- [x] Gemini-powered roadmap generation
+- [x] AI roadmap JSON parsing
+- [x] Gemini-Flask integration
 
 ### In Progress
 
-- [ ] Gemini-powered roadmap generation
-- [ ] Real job data integration
+- [ ] Frontend AI roadmap rendering polish
 - [ ] WhatsApp automation
+- [ ] Real job data integration
 - [ ] Deployment
 
 ## Architecture
@@ -75,13 +78,19 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 User
 |
 ↓
-Frontend (HTML + Tailwind + JavaScript)
+Frontend
 |
 ↓
 Flask API
 |
 ↓
 data.py
+|
+↓
+Google Gemini
+|
+↓
+AI Roadmap Generation
 |
 ↓
 JSON Response
