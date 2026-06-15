@@ -1,8 +1,8 @@
-PROJECT LOG
+## PROJECT LOG
 
-⸻
+-----------
 
-9 June 2026 :
+# 9 June 2026 :
 Completed
 
 * Fixed Search Again functionality
@@ -24,9 +24,9 @@ Learning
 * Search flow debugging
 * Importance of fixing UX bugs before adding new features
 
-⸻
+--------------
 
-10 June 2026 :
+# 10 June 2026 :
 
 Flask Learning
 
@@ -48,9 +48,9 @@ Outcome
 
 Built foundation for frontend-backend communication.
 
-⸻
+----------------------
 
-11-12 June 2026 : 
+# 11-12 June 2026 : 
 
 Frontend-Backend Integration
 
@@ -106,9 +106,9 @@ Outcome
 
 Successfully resolved communication issues.
 
-⸻
+----------------------------
 
-14 June 2026 : 
+# 14 June 2026 : 
 
 Completed
 
@@ -154,16 +154,73 @@ Completed:
 * Scheme database
 * Roadmap database
 
-Not Started:
+------------------------------
 
+# 15 June 2026 :
+
+Gemini Integration
+
+Completed
+
+* Created Gemini API key
+* Configured Gemini SDK
+* Integrated Gemini with Flask
+* Created /test-gemini route
+* Successfully generated AI roadmap
+* Parsed Gemini JSON response using json.loads()
+* Integrated AI roadmap generation into /search route
+* Added fallback mechanism to use mock roadmap when Gemini fails
+
+Challenges
+
+* Model naming issues (404 errors)
+* Gemini quota and rate limit confusion
+* 429 RESOURCE_EXHAUSTED errors
+* 503 HIGH DEMAND errors
+* Understanding difference between API issues and code issues
+* JSON parsing and response handling
+
+Learning
+
+* AI APIs can fail even when code is correct
+* Difference between infrastructure errors and programming errors
+* Parsing AI-generated JSON safely
+* Importance of fallback systems
+* How Flask can integrate external AI services
+
+Outcome
+
+Successfully connected RozgarSathi to Google Gemini.
+
+Updated Architecture:
+
+User
+↓
+Frontend
+↓
+Flask API
+↓
+data.py
+↓
+Google Gemini
+↓
+AI Roadmap Generation
+↓
+JSON Response
+↓
+Frontend Rendering
+
+Current Status
+
+Completed:
+
+* Frontend UI
+* Flask backend
+* Search API
+* Skills API
+* Job database
+* Scheme database
+* Roadmap database
 * Gemini integration
-* WhatsApp automation
-* Deployment
+* AI roadmap generation
 
-Next Planned Steps
-
-1. Full testing of all categories
-2. Project cleanup
-3. Flask file handling practice
-4. Gemini integration research
-5. AI-generated roadmap generation
