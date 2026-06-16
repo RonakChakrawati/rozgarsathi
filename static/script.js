@@ -120,7 +120,7 @@ document.getElementById('search-form').addEventListener('submit', async function
       loadingState.classList.add('hidden');
       loadingState.classList.remove('opacity-0'); // reset
 
-      // Get opportunities basedgit on category selection
+      // Get opportunities based on category selection
       const data = backendData;
 
       // Inject metadata in results section
