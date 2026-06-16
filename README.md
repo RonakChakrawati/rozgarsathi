@@ -8,8 +8,8 @@ RozgarSathi (meaning "companion for livelihood") is an AI-powered web platform b
 
 - **Relevant local job listings** matched to their profile
 - **Government schemes they qualify for** — PMKVY, DDU-GKY, PM Vishwakarma and more — explained in simple language with application steps
-- **AI-generated skill roadmap** — what to learn next to earn more, Planned AI-generated skill roadmap powered by Google Gemini
-- **WhatsApp delivery** — all results sent directly to their WhatsApp, zero app download needed
+- **AI-generated skill roadmap** — what to learn next to earn more,AI-generated skill roadmap powered by Google Gemini
+- **WhatsApp** -ready sharing workflow for jobs, schemes and roadmap recommendations
 
 ## Current MVP Features
 
@@ -45,7 +45,7 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 - Data Layer: Python data modules
 - AI Layer: Google Gemini API
 - Planned Messaging Layer: Twilio WhatsApp API
-- Deployment: Render
+- Deployment: Railway
 
 ## Project Status
 
@@ -68,9 +68,10 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 
 ### In Progress
 
-- [ ] Frontend AI roadmap rendering polish
-- [ ] WhatsApp automation
-- [ ] Real job data integration
+- WhatsApp automation
+- Real job data integration
+- Real government scheme integration
+- User testing and feedback collection
 
 ## Architecture
 
