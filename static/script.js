@@ -1,5 +1,3 @@
-console.log("SCRIPT LOADED");
-
 // Form Scroll helper for CTA button
 document.getElementById('hero-cta-btn').addEventListener('click', function (e) {
   e.preventDefault();                                                    // helps to not jump directly and shows scroll animation
@@ -20,7 +18,6 @@ document.getElementById('category-select').addEventListener('change', async func
 
   const response = await fetch(`/skills/${categoryVal}`);
   const skills = await response.json();
-  console.log(skills);
   skills.forEach(skill => {
     const opt = document.createElement('option');
     opt.value = skill;
@@ -60,7 +57,17 @@ document.getElementById('search-form').addEventListener('submit', async function
     return;
   }
 
-  console.log("FETCH STARTING");
+
+
+  // Show Loading State & hide previous results
+  const loadingState = document.getElementById('loading-state');
+  const resultsSection = document.getElementById('results-section');
+
+  resultsSection.classList.add('hidden', 'opacity-0');
+  loadingState.classList.remove('hidden');
+  // Scroll to loading area
+  loadingState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
 
   // await says wait first when fetch finish then continue
   // to use await we need async function
@@ -76,19 +83,6 @@ document.getElementById('search-form').addEventListener('submit', async function
     })
   });
   const backendData = await response.json();
-  console.log(backendData);
-  console.log(response.status);
-  console.log(response.ok);
-
-  // Show Loading State & hide previous results
-  const loadingState = document.getElementById('loading-state');
-  const resultsSection = document.getElementById('results-section');
-
-  resultsSection.classList.add('hidden', 'opacity-0');
-  loadingState.classList.remove('hidden');
-
-  // Scroll to loading area
-  loadingState.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   // Stage tracking for loading animation
   const loadingText = document.getElementById('loading-text');
@@ -115,7 +109,7 @@ document.getElementById('search-form').addEventListener('submit', async function
     }
   }, 1000);
 
-  // Simulate AI Search (3000ms for demo flow)
+  // Simulate AI Search 
   setTimeout(() => {
     clearInterval(stageInterval);
 
@@ -257,8 +251,8 @@ document.getElementById('search-form').addEventListener('submit', async function
       // Smooth scroll to results
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       resultsSection.style.display = 'block';
-    }, 300);
-  }, 3000);
+    }, 0);
+  }, 0);
 });
 
 // Search Again scroll-back handler
