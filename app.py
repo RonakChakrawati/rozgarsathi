@@ -39,46 +39,6 @@ CORS(app)
 def home():
     return render_template("index.html")
 
-# Used for debugging model availability and validating model names - {remove before final deployment}
-@app.route('/list-models')
-def list_models():
-    models = client.models.list()
-    return jsonify({"models": [m.name for m in models]})
-
-# Development / testing route only
-@app.route('/test-gemini')
-def test_gemini():
-    try:
-        # Send a test prompt to gemini
-        # The response should be a JSON array of roadmap steps
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents='''Generate a 3-step skill roadmap for an electrician worker in Surat, India.
-Return ONLY a JSON array, no extra text, no markdown, no backticks.
-Format:
-[
-  {"step": "step title in Hindi", "desc": "description in Hindi"},
-  {"step": "step title in Hindi", "desc": "description in Hindi"},
-  {"step": "step title in Hindi", "desc": "description in Hindi"}
-]'''
-        )
-        import json
-        # convert gemini's JSON string response
-        # into a python list of dictionaries
-        roadmap = json.loads(response.text or "[]")
-
-         # Debug logs used to verify response structure - {remove before final deployment}
-        print(type(roadmap))
-        print(roadmap)
-
-        # Return raw Gemini response to browser
-        return jsonify({"response": response.text})
-
-    except Exception as e:  # backup code 
-        # Return error details if gemini request fails
-        # (quota issues, network issues, invalid response, etc.)
-        return jsonify({"error": str(e)}), 500
-    
 # Skills API
 # When a user selects a category, the frontend calls this route
 # to fetch all available job/skill options for that category.
@@ -119,14 +79,22 @@ def search():
         # Create a personalized roadmap prompt for Gemini.
         # User's selected skill and location are injected
         # into the prompt to generate customized results.
-        prompt = f'''Generate a 3-step skill roadmap for a {skill} worker in {location}, India.
-        Return ONLY a JSON array, no extra text, no markdown, no backticks.
-        Format:
-        [
-            {{"step": "step title in Hindi", "desc": "description in Hindi"}},
-            {{"step": "step title in Hindi", "desc": "description in Hindi"}},
-            {{"step": "step title in Hindi", "desc": "description in Hindi"}}
-        ]'''
+        prompt = f'''
+Generate a 3-step career growth roadmap for an experienced {skill} worker in {location}, India.
+Industry: {category}
+Important:
+- Assume the worker already works as a {skill}.
+- Do NOT suggest beginner skills.
+- Do NOT suggest learning basic concepts.
+- Focus on higher-paying opportunities, specialization, leadership, certifications, modern tools and career growth.
+- Return ONLY a JSON array.
+Format:
+[
+  {{"step":"step title in Hindi","desc":"description in Hindi"}},
+  {{"step":"step title in Hindi","desc":"description in Hindi"}},
+  {{"step":"step title in Hindi","desc":"description in Hindi"}}
+]
+'''
 
         # Send prompt to gemini and receive ai-generated roadmap
         response = client.models.generate_content(
@@ -135,24 +103,26 @@ def search():
         )
 
         import json
+        
+        clean_text = (response.text or "").strip()
 
+        if clean_text.startswith("```json"):
+            clean_text = clean_text.replace("```json", "")
+            clean_text = clean_text.replace("```", "")
+            clean_text = clean_text.strip()
+        
         # Convert gemini's JSON text response into a python list of roadmap objects
-        ai_roadmap = json.loads(response.text or "[]")
+        ai_roadmap = json.loads(clean_text)
 
-    # if gemini unaviliable - use mockup data - so apllication countinue working
+    # if gemini unavailable - use mockup data - so application continue working
     except Exception as e:
-        print(f"Gemini failed: {e}")
-        result = base_data.copy()
+        result = base_data.copy()   
         ai_roadmap = base_data["roadmap"]
 
     # Create a copy of category data and replace
     # the default roadmap with the AI-generated roadmap
     result = base_data.copy()
     result['roadmap'] = ai_roadmap
-
-    # Debug log used during development - {remove before final deployment}
-    print("FINAL ROADMAP:")
-    print(result["roadmap"])
 
     # send final jobs, schemes and roadmap to frontend
     return jsonify(result)
