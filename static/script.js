@@ -51,8 +51,8 @@ document.getElementById('search-form').addEventListener('submit', async function
     return;
   }
 
-  const cityRegex = /^[A-Za-z\u0900-\u097F\s]+$/;
-  if (!cityRegex.test(locationVal) && locationVal.length >= 2) {
+  const cityRegex = /^[A-Za-z\u0900-\u097F\s-]+$/;
+  if (!cityRegex.test(locationVal)) {
     alert("कृपया अपने शहर या गाँव का सही नाम दर्ज करें | Please enter a valid city or village name");
     return;
   }
@@ -267,7 +267,7 @@ document.getElementById('search-form').addEventListener('submit', async function
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       resultsSection.style.display = 'block';
     }, 0);
-  }, 3000);
+  }, 1000);
 });
 
 // Search Again scroll-back handler
