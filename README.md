@@ -49,29 +49,35 @@ Existing platforms like Naukri and LinkedIn are built for white collar India. Ro
 
 ## Project Status
 
-### Completed
+# Completed
 
-- [x] Problem research
-- [x] Idea validation
-- [x] Team formation
-- [x] Frontend UI
-- [x] Flask backend setup
-- [x] Backend API integration
-- [x] Dynamic category & skill system
-- [x] Worker opportunity database
-- [x] Government scheme database
-- [x] Career roadmap database
-- [x] Gemini-powered roadmap generation
-- [x] AI roadmap JSON parsing
-- [x] Gemini-Flask integration
-- [x] Deployment
+* Problem research
+* Idea validation
+* Team formation
+* Frontend UI
+* Frontend redesign and UX improvements
+* Flask backend setup
+* Backend API integration
+* Dynamic category & skill system
+* Worker opportunity database
+* Government scheme database
+* Career roadmap database
+* Gemini-powered roadmap generation
+* AI roadmap JSON parsing
+* Gemini-Flask integration
+* Deployment on Railway
+* Mobile responsive design
+* UI/UX redesign for worker-first experience
 
-### In Progress
+# In Progress
 
-- WhatsApp automation
-- Real job data integration
-- Real government scheme integration
-- User testing and feedback collection
+* Demo preparation
+* Pitch deck preparation
+* User testing and feedback collection
+* Results page refinement
+* WhatsApp automation
+* Real job data integration
+* Real government scheme integration
 
 ## Architecture
 
