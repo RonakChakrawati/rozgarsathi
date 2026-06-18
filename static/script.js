@@ -51,13 +51,11 @@ document.getElementById('search-form').addEventListener('submit', async function
     return;
   }
 
-  const cityRegex = /^[A-Za-z\s]+$/;
-  if (!cityRegex.test(locationVal)) {
+  const cityRegex = /^[A-Za-z\u0900-\u097F\s]+$/;
+  if (!cityRegex.test(locationVal) && locationVal.length >= 2) {
     alert("कृपया अपने शहर या गाँव का सही नाम दर्ज करें | Please enter a valid city or village name");
     return;
   }
-
-
 
   // Show Loading State & hide previous results
   const loadingState = document.getElementById('loading-state');
@@ -68,6 +66,44 @@ document.getElementById('search-form').addEventListener('submit', async function
   // Scroll to loading area
   loadingState.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+  // Stage tracking for loading animation
+  const loadingText = document.getElementById('loading-text');
+  const loadingSubtext = document.getElementById('loading-subtext');
+  const progressBar = document.getElementById('loading-progress-bar');
+
+  const loadingStages = [
+    { text: "ढूंढ रहे हैं नौकरियां...", subtext: "Searching for jobs near you...", progress: "33%" },
+    { text: "सरकारी योजनाएं मिल रही हैं...", subtext: "Matching government welfare schemes...", progress: "66%" },
+    { text: "AI रोडमैप बन रहा है...", subtext: "Generating customized AI skill roadmap...", progress: "100%" }
+  ];
+
+  let currentStage = 0;
+  let progress = 0;
+
+  if (loadingText) loadingText.textContent = loadingStages[0].text;
+  if (loadingSubtext) loadingSubtext.textContent = loadingStages[0].subtext;
+
+  const stageInterval = setInterval(() => {
+    // Smooth progress up to 85%
+    if (progress < 85) {
+      progress += 1.5;
+      if (progressBar) {
+        progressBar.style.width = progress + "%";
+      }
+    }
+    // Change messages every ~2 seconds
+    if (progress > 25 && currentStage === 0) {
+      currentStage = 1;
+      if (loadingText) loadingText.textContent = loadingStages[1].text;
+      if (loadingSubtext) loadingSubtext.textContent = loadingStages[1].subtext;
+    }
+    if (progress > 55 && currentStage === 1) {
+      currentStage = 2;
+      if (loadingText) loadingText.textContent = loadingStages[2].text;
+      if (loadingSubtext) loadingSubtext.textContent = loadingStages[2].subtext;
+    }
+
+  }, 100);
 
   // await says wait first when fetch finish then continue
   // to use await we need async function
@@ -84,30 +120,9 @@ document.getElementById('search-form').addEventListener('submit', async function
   });
   const backendData = await response.json();
 
-  // Stage tracking for loading animation
-  const loadingText = document.getElementById('loading-text');
-  const loadingSubtext = document.getElementById('loading-subtext');
-  const progressBar = document.getElementById('loading-progress-bar');
-
-  const loadingStages = [
-    { text: "ढूंढ रहे हैं नौकरियां...", subtext: "Searching for jobs near you...", progress: "33%" },
-    { text: "सरकारी योजनाएं मिल रही हैं...", subtext: "Matching government welfare schemes...", progress: "66%" },
-    { text: "AI रोडमैप बन रहा है...", subtext: "Generating customized AI skill roadmap...", progress: "100%" }
-  ];
-
-  let currentStage = 0;
-  if (progressBar) progressBar.style.width = loadingStages[0].progress;
-  if (loadingText) loadingText.textContent = loadingStages[0].text;
-  if (loadingSubtext) loadingSubtext.textContent = loadingStages[0].subtext;
-
-  const stageInterval = setInterval(() => {
-    currentStage++;
-    if (currentStage < loadingStages.length) {
-      if (progressBar) progressBar.style.width = loadingStages[currentStage].progress;
-      if (loadingText) loadingText.textContent = loadingStages[currentStage].text;
-      if (loadingSubtext) loadingSubtext.textContent = loadingStages[currentStage].subtext;
-    }
-  }, 1000);
+  clearInterval(stageInterval);
+  if (progressBar) progressBar.style.width = "100%";
+  
 
   // Simulate AI Search 
   setTimeout(() => {
@@ -252,7 +267,7 @@ document.getElementById('search-form').addEventListener('submit', async function
       resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       resultsSection.style.display = 'block';
     }, 0);
-  }, 0);
+  }, 3000);
 });
 
 // Search Again scroll-back handler
