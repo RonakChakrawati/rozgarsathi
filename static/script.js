@@ -34,6 +34,10 @@ document.getElementById('category-select').addEventListener('change', async func
 // Form Submit Handling
 document.getElementById('search-form').addEventListener('submit', async function (e) {
   e.preventDefault();
+  const submitBtn = document.getElementById('submit-btn');
+  if (submitBtn.disabled) return;
+  submitBtn.disabled = true;
+  submitBtn.textContent = "खोज रहे हैं...";
   const categoryVal = document.getElementById('category-select').value;
   const skillVal = document.getElementById('skill-select').value;
   const whatsappVal = document.getElementById('whatsapp-input').value.trim();
@@ -119,10 +123,12 @@ document.getElementById('search-form').addEventListener('submit', async function
     })
   });
   const backendData = await response.json();
+  submitBtn.disabled = false;
+  submitBtn.textContent = "अपना काम ढूंढें";
 
   clearInterval(stageInterval);
   if (progressBar) progressBar.style.width = "100%";
-  
+
 
   // Simulate AI Search 
   setTimeout(() => {
@@ -159,6 +165,7 @@ document.getElementById('search-form').addEventListener('submit', async function
           `📞 संपर्क व्यक्ति: ${job.contact}\n\n` +
           `कृपया मुझे आवेदन करने की प्रक्रिया समझाएं। धन्यवाद!`
         );
+        
         const waJobUrl = `https://wa.me/91${whatsappVal}?text=${waJobText}`;
 
         const jobCard = `
@@ -253,9 +260,12 @@ document.getElementById('search-form').addEventListener('submit', async function
         `📂 काम की श्रेणी: ${categoryName}\n\n` +
         `कृपया मुझे मेरे शहर में मौजूद सभी नौकरियां, सरकारी योजनाओं की लिस्ट और मेरा कस्टमाइज्ड 'AI स्किल रोडमैप' व्हाट्सएप पर पीडीएफ के रूप में भेजें। धन्यवाद!`
       );
-      const waAllUrl = `https://wa.me/91${whatsappVal}?text=${waAllText}`;
-
       document.getElementById('send-all-whatsapp').onclick = function () {
+        if (!whatsappVal) {
+          alert("कृपया पहले अपना WhatsApp नंबर दर्ज करें");
+          return;
+        }
+        const waAllUrl = `https://wa.me/91${whatsappVal}?text=${waAllText}`;
         window.open(waAllUrl, '_blank');
       };
       // Reveal Results Section with fade-in
