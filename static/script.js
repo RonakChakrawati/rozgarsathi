@@ -39,14 +39,14 @@ document.getElementById('search-form').addEventListener('submit', async function
   const whatsappVal = document.getElementById('whatsapp-input').value.trim();
   const locationVal = document.getElementById('location-input').value.trim();
 
-  if (!categoryVal || !skillVal || !whatsappVal || !locationVal) {
+  if (!categoryVal || !skillVal || !locationVal) {
     alert("कृपया सभी आवश्यक क्षेत्रों को भरें। | Please fill in all required fields.");
     return;
   }
 
-  // Basic WhatsApp number validation (10 digits starting with 6-9)
+  // Basic WhatsApp number validation (10 digits starting with 6-9) — only if provided
   const phoneRegex = /^[6-9][0-9]{9}$/;
-  if (!phoneRegex.test(whatsappVal)) {
+  if (whatsappVal && !phoneRegex.test(whatsappVal)) {
     alert("कृपया एक सही 10-अंकीय WhatsApp नंबर दर्ज करें | Please enter a valid 10-digit WhatsApp number.");
     return;
   }
